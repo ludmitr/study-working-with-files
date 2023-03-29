@@ -1,5 +1,4 @@
 import os
-import shutil
 
 
 def main():
@@ -24,7 +23,7 @@ def main():
 
 
 def move_file(old_path, new_path):
-    shutil.move(old_path, new_path)
+    os.replace(old_path, new_path) # if the file exist it will replace it. rename will raise am error
 
 
 def get_file_names(path: str) -> list:
