@@ -2,23 +2,32 @@ import os
 
 
 def main():
-    os.chdir("Photos")  # change dir
+    pass
 
-    originals = os.listdir()
-    originals = [original for original in originals if original[-4:] == ".jpg"]
-    places = [extract_place(file_name) for file_name in originals if extract_place(file_name)]
+
+def organize_photos(directory):
+    old_working_directory = os.getcwd()
+    os.chdir(directory)  # change dir
+
+    # getting photos names and places names
+    originals_photo_names = os.listdir()
+    originals_photo_names = [original for original in originals_photo_names if original[-4:] == ".jpg"]
+    places = [extract_place(file_name) for file_name in originals_photo_names if extract_place(file_name)]
     places = list(set(places))  # removing duplicates
 
-    # making forlders and sorting photos in folders according its places
+    # making folders and sorting photos in folders according its places
     make_place_directories(places)
-    move_photos_to_place_folder(originals)
+    move_photos_to_place_folder(originals_photo_names)
+
+    os.chdir(old_working_directory)
 
 
-def move_photos_to_place_folder(photos: list):
-    for photo in photos:
-        folder_name = extract_place(photo)
-        new_path = os.path.join(folder_name, photo)  # using relative path
-        os.rename(photo, new_path)
+def move_photos_to_place_folder(file_names: list):
+    for file in file_names:
+        folder_name = extract_place(file)
+        os.rename(file,
+                  os.path.join(folder_name, file))  # using relative path
+
 
 def make_place_directories(places):
     for place in places:
