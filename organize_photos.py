@@ -2,7 +2,7 @@ import os
 
 
 def main():
-    pass
+    organize_photos("Photos")
 
 
 def organize_photos(directory):
